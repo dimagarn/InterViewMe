@@ -1,40 +1,56 @@
 from models.profile import InterviewerProfile
 
-typical_phrases = [
-"А какая временная сложность у quicksort в худшем случае?",
-"Расскажите разницу между TCP и UDP протоколами",
-"Что происходит при выполнении команды git merge --no-ff?",
-"Объясните принцип работы garbage collector в Python",
-"А почему вы не использовали паттерн Singleton в этом случае?"
-]
-
-advice_tips = [
-"Переводите всё в практические примеры - 'Это как пицца...'",
-"Начинайте с фразы 'В реальных проектах обычно...'",
-"Признайтесь честно: 'Хороший вопрос, а как вы это решаете?'"
-]
-
-revenge_tactics = [
-"Спросите его про soft skills и эмоциональный интеллект",
-"Попросите объяснить код без технических терминов",
-"Задайте вопрос: 'А как это поможет бизнесу?'"
-]
-
-avatar_url = "https://a.d-cd.net/9aec42as-960.jpg"
-
 nerd_interviewer = InterviewerProfile(
-    name = "fred",
-    archetype = "душнила",
+    title = "Душнила",
     description = "классический душнила, постоянно душит своими ненужными советами",
-    typical_phrases = typical_phrases,
-    advice_tips = advice_tips,
-    avatar_url = avatar_url,
-    revenge_tactics = revenge_tactics
+    typical_phrases = [
+        "А какая временная сложность у quicksort в худшем случае?",
+        "Расскажите разницу между TCP и UDP протоколами",
+        "Что происходит при выполнении команды git merge --no-ff?",
+        "Объясните принцип работы garbage collector в Python",
+        "А почему вы не использовали паттерн Singleton в этом случае?"
+    ],
+    advice_tips = [
+        "Переводите всё в практические примеры - 'Это как пицца...'",
+        "Начинайте с фразы 'В реальных проектах обычно...'",
+        "Признайтесь честно: 'Хороший вопрос, а как вы это решаете?'"
+    ],
+    avatar_url = "https://a.d-cd.net/9aec42as-960.jpg",
+    revenge_tactics = [
+        "Притворись, что не знаешь что такое 'переменная'. Смотри на него с искренним интересом",
+        "Каждые 30 секунд кивай и говори 'Ага, как в Excel'. Наблюдай как у него дёргается глаз",
+        "Начни рисовать схему его объяснений на салфетке. Добавь стрелочки и смайлики"
+    ]
 )
 
+humor_interviewer = InterviewerProfile(
+    title = "Раздувной",
+    description = "ценитель элитного юмора, всегда поддержит беседу заразным смехотом",
+    typical_phrases = [
+        "Чё, может по пиву после встречи?",
+        "Девопс у нас есть. Это Пётр. Он один. Он устал.",
+        "У нас тут agile, но по факту мы просто гибко страдаем."
+    ],
+    advice_tips = [
+        "Если он смотрит на тебя дольше 5 секунд - начни говорить на латыни.",
+        "Принеси с собой 'Свидетельство о выгорании' с печатью. Он уважают тех, кто уже прошёл Огонь KPI.",
+        "Если он задал вопрос, на который нет ответа - просто повтори его с вопросительной интонацией.",
+        "Перед уходом трижды скажи: 'Спасибо за возможность'. "
+    ],
+    avatar_url = "https://i.ytimg.com/vi/j2PeAUDOTUc/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AG-BIACrgOKAgwIABABGGUgWihPMA8=&rs=AOn4CLAZ3S1O7kMKMfidBlddJNVg38UZDA",
+    revenge_tactics = [
+        "Смейся на полсекунды позже всех. Создавай неловкую паузу после каждой его шутки",
+        "Веди счётчик его шуток на листочке. Периодически вычёркивай что-то со вздохом",
+        "После каждой его фразы спрашивай: 'Это тоже шутка?' с каменным лицом"
+    ]
+)
+
+all_interviewers = [nerd_interviewer, humor_interviewer]
+
 if __name__ == "__main__":
-    print("Тестируем модель...")
-    print(f"Имя: {nerd_interviewer.name}")
-    print(f"Тип: {nerd_interviewer.archetype}")
-    print(f"Количество фраз: {len(nerd_interviewer.typical_phrases)}")
-    print("Первая фраза:", nerd_interviewer.typical_phrases[0])
+    print("=== Тестируем модели ===")
+    print(f"Душнила: {nerd_interviewer.title}")
+    print(f"Фраз у него: {len(nerd_interviewer.typical_phrases)}")
+
+    print(f"Раздувной: {humor_interviewer.title}")
+    print(f"Фраз у него: {len(humor_interviewer.typical_phrases)}")
