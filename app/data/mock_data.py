@@ -2,7 +2,7 @@ from models.profile import InterviewerProfile
 
 nerd_interviewer = InterviewerProfile(
     title = "Душнила",
-    description = "классический душнила, постоянно душит своими ненужными советами",
+    description = "Классический представитель, рядом с ним даже на улице становится нечем дышать",
     typical_phrases = [
         "А какая временная сложность у quicksort в худшем случае?",
         "Расскажите разницу между TCP и UDP протоколами",
@@ -25,7 +25,7 @@ nerd_interviewer = InterviewerProfile(
 
 humor_interviewer = InterviewerProfile(
     title = "Раздувной",
-    description = "ценитель элитного юмора, всегда поддержит беседу заразным смехотом",
+    description = "Ценитель элитного юмора, профессионально разбирается в мемах",
     typical_phrases = [
         "Чё, может по пиву после встречи?",
         "Девопс у нас есть. Это Пётр. Он один. Он устал.",
@@ -35,7 +35,7 @@ humor_interviewer = InterviewerProfile(
         "Если он смотрит на тебя дольше 5 секунд - начни говорить на латыни.",
         "Принеси с собой 'Свидетельство о выгорании' с печатью. Он уважают тех, кто уже прошёл Огонь KPI.",
         "Если он задал вопрос, на который нет ответа - просто повтори его с вопросительной интонацией.",
-        "Перед уходом трижды скажи: 'Спасибо за возможность'. "
+        "Перед уходом трижды скажи: 'Спасибо за возможность'."
     ],
     avatar_url = "https://i.ytimg.com/vi/j2PeAUDOTUc/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AG-BIACrgOKAgwIABABGGUgWihPMA8=&rs=AOn4CLAZ3S1O7kMKMfidBlddJNVg38UZDA",
     revenge_tactics = [
@@ -45,7 +45,52 @@ humor_interviewer = InterviewerProfile(
     ]
 )
 
-all_interviewers = [nerd_interviewer, humor_interviewer]
+chill_interviewer = InterviewerProfile(
+    title = "Чилл-гай",
+    description = "Всегда спокоен, невозмутимость его второе имя",
+    typical_phrases = [
+        "А какая разница, что деплой сгорел? Восстановим",
+        "Ну… я не люблю термин «жёсткие дедлайны», я говорю «временные якоря»",
+        "Чисто ради вайба: можешь с нуля написать RTOS?"
+    ],
+    advice_tips = [
+        "Отвечай на вопросы философскими притчами",
+        "Говори как будто у тебя медитация после марафона.",
+        "Вместо слов «проект» говори «путь»",
+        "Называй баги «волнами в океане кода». Это звучит и красиво, и мудро."
+    ],
+    avatar_url = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fkz.kursiv.media%2F2024-11-25%2Flfst-rtgm-chill-guy%2F&psig=AOvVaw189jQlTPj5dXT3ya7AcF6W&ust=1754080510300000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJj02KD5544DFQAAAAAdAAAAABAX",
+    revenge_tactics = [
+        "Запусти дрон с колонкой, который будет летать у него под окнами и круглосуточно играть «Lo-fi beats»",
+        "Замени его плейлист на Spotify на звуки пылесоса, замаскированные под lo-fi",
+        "Заведи бота, который каждые 5 минут пишет ему: «Что ты чувствуешь по поводу этой тоски?»"
+    ]
+)
+
+panic_interviewer = InterviewerProfile(
+    title = "Паникёр",
+    description = "Король тревоги, повелитель стресса",
+    typical_phrases = [
+        "А что, если прод упадёт в субботу в 3 часа ночи?",
+        "Что если в этой функции скрыта бомба замедленного действия?",
+        "Мы точно все протестировали? Может сделаем заново?"
+    ],
+    advice_tips = [
+        "Если он начинает спрашивать - всегда переводи разговор на погоду",
+        "Если он паникует - медленно достань из-за спины резиновую уточку и поставь ему на стол",
+        "Не упоминай слова «коммит» и «деплой» в его присутствии",
+        "НИКОГДА НЕ ПАНИКУЙ"
+    ],
+    avatar_url = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fkz.kursiv.media%2F2024-11-25%2Flfst-rtgm-chill-guy%2F&psig=AOvVaw189jQlTPj5dXT3ya7AcF6W&ust=1754080510300000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJj02KD5544DFQAAAAAdAAAAABAX",
+    revenge_tactics = [
+        "Поставить на его стол большую красную кнопку с надписью «НЕ НАЖИМАТЬ»",
+        "Делай вид, что каждый раз, когда он встаёт, ты записываешь время",
+        "Убери клавишу Escape с его клавиатуры. Просто убери",
+        "Сделай вид, что прод упал, следи за реакцией"
+    ]
+)
+
+all_interviewers = [nerd_interviewer, humor_interviewer, chill_interviewer, panic_interviewer]
 
 if __name__ == "__main__":
     print("=== Тестируем модели ===")
