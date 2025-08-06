@@ -59,11 +59,11 @@ chill_interviewer = InterviewerProfile(
         "Вместо слов «проект» говори «путь»",
         "Называй баги «волнами в океане кода». Это звучит и красиво, и мудро."
     ],
-    avatar_url = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fkz.kursiv.media%2F2024-11-25%2Flfst-rtgm-chill-guy%2F&psig=AOvVaw189jQlTPj5dXT3ya7AcF6W&ust=1754080510300000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJj02KD5544DFQAAAAAdAAAAABAX",
+    avatar_url = "https://content.imageresizer.com/images/memes/Chill-guy-meme-9au02y.jpg",
     revenge_tactics = [
         "Запусти дрон с колонкой, который будет летать у него под окнами и круглосуточно играть «Lo-fi beats»",
         "Замени его плейлист на Spotify на звуки пылесоса, замаскированные под lo-fi",
-        "Заведи бота, который каждые 5 минут пишет ему: «Что ты чувствуешь по поводу этой тоски?»"
+        "Заведи бота, который каждые 5 минут пишет ему: «Что ты чувствуешь по поводу этой таски?»"
     ]
 )
 
@@ -81,7 +81,7 @@ panic_interviewer = InterviewerProfile(
         "Не упоминай слова «коммит» и «деплой» в его присутствии",
         "НИКОГДА НЕ ПАНИКУЙ"
     ],
-    avatar_url = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fkz.kursiv.media%2F2024-11-25%2Flfst-rtgm-chill-guy%2F&psig=AOvVaw189jQlTPj5dXT3ya7AcF6W&ust=1754080510300000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJj02KD5544DFQAAAAAdAAAAABAX",
+    avatar_url = "https://i.pinimg.com/736x/0e/5c/4b/0e5c4bce70d590e974923cf8b90ba921.jpg",
     revenge_tactics = [
         "Поставить на его стол большую красную кнопку с надписью «НЕ НАЖИМАТЬ»",
         "Делай вид, что каждый раз, когда он встаёт, ты записываешь время",

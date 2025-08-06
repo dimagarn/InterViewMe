@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import List
 from models.profile import InterviewerProfile
 
 class BaseRandomResponse(BaseModel):
@@ -18,5 +17,5 @@ class RandomRevengeResponse(BaseRandomResponse):
     revenge_index: int
 
 class ProfileListResponse(BaseModel):
-    profiles: List[InterviewerProfile]
+    profiles: list[InterviewerProfile]
     count: int
