@@ -1,28 +1,55 @@
-from fastapi import APIRouter, HTTPException
-from models.profile import InterviewerProfile
-from data.mock_data import all_interviewers
-from schemas.responses import RandomPhraseResponse, RandomAdviceResponse, RandomRevengeResponse, ProfileListResponse
+from dataclasses import field
+
+from fastapi import APIRouter, HTTPException, Depends
+from sqlalchemy.orm import Session
+from models.db_models import Profile
+from schemas.responses import RandomItemResponse, ProfileListResponse
+from database import get_db
 import random
+from functools import wraps
+
 
 router = APIRouter()
 
 
-def _get_profile_by_id(profile_id: int) -> InterviewerProfile:
-    if profile_id >= len(all_interviewers) or profile_id < 0:
+def _get_profile_by_id(db: Session, profile_id: int) -> Profile:
+    """Получить профиль по ID с проверкой существования"""
+    profile = db.query(Profile).filter(Profile.id == profile_id).first()
+    if not profile:
         raise HTTPException(status_code=404, detail="Профиль не найден")
-    return all_interviewers[profile_id]
+    return profile
 
+def random_item_endpoint(field_name: str):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(profile_id: int, db: Session = Depends(get_db)):
+            profile = _get_profile_by_id(db, profile_id)
+            items = getattr(profile, field_name)
+
+            if not items:
+                readable_field = field_name.replace("_", " ")
+                error_msg = f"Profile has no {readable_field}"
+                raise HTTPException(status_code=404, detail=error_msg)
+            index = random.randint(0, len(items) - 1)
+
+            return RandomItemResponse(
+                text=items[index],
+                profile_id=profile.id,
+                profile_title=profile.title,
+                index=index,
+                count=len(items)
+            )
+        return wrapper
+    return decorator
 
 def _get_random_index(items: list, error_message: str) -> int:
-    if len(items) == 0:
+    """Получить случайный индекс из списка с проверкой на пустоту"""
+    if not items or len(items) == 0:
         raise HTTPException(status_code=404, detail=error_message)
-
-    random_index = random.choice(range(len(items)))
-    return random_index
-
+    return random.randint(0, len(items) - 1)
 
 @router.get("/profiles/", response_model=ProfileListResponse)
-def get_all_profiles():
+def get_all_profiles(db: Session = Depends(get_db)):
     """
     Получить список всех профилей собеседующих
 
@@ -32,17 +59,17 @@ def get_all_profiles():
     :return: Список всех профилей собеседующих
     :rtype: ProfileListResponse
     """
+    profiles = db.query(Profile).all()
 
     response = ProfileListResponse(
-        profiles = all_interviewers,
-        count = len(all_interviewers)
+        profiles = profiles,
+        count = len(profiles)
     )
-
     return response
 
 
-@router.get("/profiles/{profile_id}", response_model=InterviewerProfile)
-def get_profile_by_id(profile_id: int):
+@router.get("/profiles/{profile_id}")
+def get_profile_by_id(profile_id: int, db: Session = Depends(get_db)):
     """
     Получить профиль собеседующего по ID
 
@@ -52,85 +79,46 @@ def get_profile_by_id(profile_id: int):
     :param profile_id: ID профиля (0=Душнила, 1=Раздувной, 2=Чилл-гай, 3=Паникёр)
     :type profile_id: int
     :return: Объект с полной информацией о профиле
-    :rtype: InterviewerProfile
+    :rtype: Profile
     :raises HTTPException: 404 если профиль не найден
     """
-    return _get_profile_by_id(profile_id)
+    profile = db.query(Profile).filter(Profile.id == profile_id).first()
+    if not profile:
+        raise HTTPException(status_code=404, detail="Профиль не найден")
+    return profile
 
 
-@router.get("/profiles/{profile_id}/random_phrase", response_model=RandomPhraseResponse)
-def get_random_phrase(profile_id: int):
+@router.get("/profiles/{profile_id}/random_phrase")
+@random_item_endpoint("typical_phrases")
+def get_random_phrase(profile_id: int, db: Session = Depends(get_db)):
     """
     Получить случайную фразу собеседующего
 
-    Возвращает случайную фразу из списка типичных фраз собеседующего по его ID.
-
-    :param profile_id: ID профиля (0=Душнила, 1=Раздувной, 2=Чилл-гай, 3=Паникёр)
-    :type profile_id: int
-    :return: Объект содержащий текст фразы, ID профиля, название профиля, порядковый номер фразы, количество фраз
-    :rtype: RandomPhraseResponse
-    :raises HTTPException: 404 если профиль не найден или у профиля нет фраз
+    Реализация автоматически предоставляется декоратором @random_item_endpoint.
+    Декоратор обрабатывает получение профиля, выбор случайной фразы и формирование ответа.
     """
-    profile = _get_profile_by_id(profile_id)
-    phrase_index = _get_random_index(profile.typical_phrases, "У данного профиля нет фраз")
-
-    response = RandomPhraseResponse(
-       text = profile.typical_phrases[phrase_index],
-       profile_id = profile_id,
-       profile_title = profile.title,
-       phrase_index = phrase_index,
-       count = len(profile.typical_phrases)
-    )
-    return response
+    pass
 
 
-@router.get("/profiles/{profile_id}/random_advice", response_model=RandomAdviceResponse)
-def get_random_advice(profile_id: int):
+@router.get("/profiles/{profile_id}/random_advice")
+@random_item_endpoint("advice_tips")
+def get_random_advice(profile_id: int, db: Session = Depends(get_db)):
     """
     Получить случайный совет для общения с собеседующим
 
-    Возвращает случайный совет из списка рекомендаций по общению с собеседующим по его ID.
-
-    :param profile_id: ID профиля (0=Душнила, 1=Раздувной, 2=Чилл-гай, 3=Паникёр)
-    :type profile_id: int
-    :return: Объект содержащий текст совета, ID профиля, название профиля, порядковый номер совета, количество советов
-    :rtype: RandomAdviceResponse
-    :raises HTTPException: 404 если профиль не найден или у профиля нет советов
+    Реализация автоматически предоставляется декоратором @random_item_endpoint.
+    Декоратор обрабатывает получение профиля, выбор случайного совета и формирование ответа.
     """
-    profile = _get_profile_by_id(profile_id)
-    advice_index = _get_random_index(profile.advice_tips, "У данного профиля нет советов")
-
-    response = RandomAdviceResponse(
-        text = profile.advice_tips[advice_index],
-        profile_id = profile_id,
-        profile_title = profile.title,
-        advice_index = advice_index,
-        count=len(profile.advice_tips)
-    )
-    return response
+    pass
 
 
-@router.get("/profiles/{profile_id}/random_revenge", response_model=RandomRevengeResponse)
-def get_random_revenge(profile_id: int):
+@router.get("/profiles/{profile_id}/random_revenge", response_model=RandomItemResponse)
+@random_item_endpoint("revenge_tactics")
+def get_random_revenge(profile_id: int, db: Session = Depends(get_db)):
     """
     Получить случайную тактику мести против собеседующего
 
-    Возвращает случайную юмористическую тактику мести против собеседующего по его ID.
-
-    :param profile_id: ID профиля (0=Душнила, 1=Раздувной, 2=Чилл-гай, 3=Паникёр)
-    :type profile_id: int
-    :return: Объект содержащий текст тактики мести, ID профиля, название профиля, порядковый номер тактики, количество тактик
-    :rtype: RandomRevengeResponse
-    :raises HTTPException: 404 если профиль не найден или у профиля нет тактик мести
+    Реализация автоматически предоставляется декоратором @random_item_endpoint.
+    Декоратор обрабатывает получение профиля, выбор случайной мести и формирование ответа.
     """
-    profile = _get_profile_by_id(profile_id)
-    revenge_index = _get_random_index(profile.revenge_tactics, "У данного профиля нет тактик мести")
-
-    response = RandomRevengeResponse(
-        text = profile.revenge_tactics[revenge_index],
-        profile_id = profile_id,
-        profile_title = profile.title,
-        revenge_index = revenge_index,
-        count=len(profile.revenge_tactics)
-    )
-    return response
+    pass

@@ -15,7 +15,7 @@ nerd_interviewer = InterviewerProfile(
         "Начинайте с фразы 'В реальных проектах обычно...'",
         "Признайтесь честно: 'Хороший вопрос, а как вы это решаете?'"
     ],
-    avatar_url = "https://a.d-cd.net/9aec42as-960.jpg",
+    avatar_url = "/static/images/avatars/nerd.jpg",
     revenge_tactics = [
         "Притворись, что не знаешь что такое 'переменная'. Смотри на него с искренним интересом",
         "Каждые 30 секунд кивай и говори 'Ага, как в Excel'. Наблюдай как у него дёргается глаз",
@@ -37,7 +37,7 @@ humor_interviewer = InterviewerProfile(
         "Если он задал вопрос, на который нет ответа - просто повтори его с вопросительной интонацией.",
         "Перед уходом трижды скажи: 'Спасибо за возможность'."
     ],
-    avatar_url = "https://i.ytimg.com/vi/j2PeAUDOTUc/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AG-BIACrgOKAgwIABABGGUgWihPMA8=&rs=AOn4CLAZ3S1O7kMKMfidBlddJNVg38UZDA",
+    avatar_url = "/static/images/avatars/humor.jpg",
     revenge_tactics = [
         "Смейся на полсекунды позже всех. Создавай неловкую паузу после каждой его шутки",
         "Веди счётчик его шуток на листочке. Периодически вычёркивай что-то со вздохом",
@@ -59,7 +59,7 @@ chill_interviewer = InterviewerProfile(
         "Вместо слов «проект» говори «путь»",
         "Называй баги «волнами в океане кода». Это звучит и красиво, и мудро."
     ],
-    avatar_url = "https://content.imageresizer.com/images/memes/Chill-guy-meme-9au02y.jpg",
+    avatar_url = "/static/images/avatars/chill.jpg",
     revenge_tactics = [
         "Запусти дрон с колонкой, который будет летать у него под окнами и круглосуточно играть «Lo-fi beats»",
         "Замени его плейлист на Spotify на звуки пылесоса, замаскированные под lo-fi",
@@ -81,7 +81,7 @@ panic_interviewer = InterviewerProfile(
         "Не упоминай слова «коммит» и «деплой» в его присутствии",
         "НИКОГДА НЕ ПАНИКУЙ"
     ],
-    avatar_url = "https://i.pinimg.com/736x/0e/5c/4b/0e5c4bce70d590e974923cf8b90ba921.jpg",
+    avatar_url = "/static/images/avatars/panic.jpg",
     revenge_tactics = [
         "Поставить на его стол большую красную кнопку с надписью «НЕ НАЖИМАТЬ»",
         "Делай вид, что каждый раз, когда он встаёт, ты записываешь время",
